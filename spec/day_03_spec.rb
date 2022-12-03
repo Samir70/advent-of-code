@@ -1,18 +1,36 @@
-require 'day_03'
+require "day_03"
 
 RSpec.describe Solution03 do
   before(:each) do
-    @test_case = './lib/inputs/test_cases/day_03_1.txt'
-    @big_test = './lib/inputs/big_tests/day_03.txt'
+    @test_case = "./lib/inputs/test_cases/day_03_1.txt"
+    @big_test = "./lib/inputs/big_tests/day_03.txt"
   end
 
-  it 'solves example test case' do
+  it "splits rucksack contents into two halves" do
     sol = Solution03.new(@test_case)
-    expect(sol.run).to eq nil
+    expect(sol.splitRucks(0)).to eq ["vJrwpWtwJgWr", "hcsFMMfFFhFp"]
+  end
+  it "find an overlap" do
+    sol = Solution03.new(@test_case)
+    expect(sol.overlap("vJrwpWtwJgWr", "hcsFMMfFFhFp")).to eq "p"
+  end
+  it "finds priorities" do
+    sol = Solution03.new(@test_case)
+    expect(sol.priority("p")).to eq 16
+    expect(sol.priority("L")).to eq 38
+    expect(sol.priority("Z")).to eq 52
+  end
+  it "find all overlaps" do
+    sol = Solution03.new(@test_case)
+    expect(sol.overlaps).to eq [16, 38, 42, 22, 20, 19]
+  end
+  it "solves example test case" do
+    sol = Solution03.new(@test_case)
+    expect(sol.run).to eq 157
   end
 
-  it 'solves big test' do
+  it "solves big test" do
     sol = Solution03.new(@big_test)
-    expect(sol.run).to eq nil
+    expect(sol.run).to eq 7766
   end
 end

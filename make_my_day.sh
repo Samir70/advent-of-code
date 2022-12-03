@@ -4,6 +4,7 @@ file="./lib/day_$1.rb"
 echo "class Solution$1" > $file
 echo "  def initialize(file_name)" >> $file
 echo "    @file_name = file_name" >> $file
+echo "    @data = []" >> $file
 echo "    process" >> $file
 echo "  end" >> $file
 echo "" >> $file
@@ -13,7 +14,7 @@ echo "  end" >> $file
 echo "" >> $file
 echo "  def process" >> $file
 echo "    file = File.new(@file_name)" >> $file
-echo "    file_data = file.readlines.map(&:to_i)" >> $file
+echo "    @data = file.readlines" >> $file
 echo "    file.close" >> $file
 echo "  end" >> $file
 echo "end" >> $file
