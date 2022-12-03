@@ -14,7 +14,7 @@ echo "  end" >> $file
 echo "" >> $file
 echo "  def process" >> $file
 echo "    file = File.new(@file_name)" >> $file
-echo "    @data = file.readlines" >> $file
+echo "    @data = file.readlines.map(&:chomp)" >> $file
 echo "    file.close" >> $file
 echo "  end" >> $file
 echo "end" >> $file
