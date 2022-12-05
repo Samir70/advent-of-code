@@ -12,6 +12,10 @@ echo "  def run" >> $file
 echo "  " >> $file
 echo "  end" >> $file
 echo "" >> $file
+echo "  def run_2" >> $file
+echo "  " >> $file
+echo "  end" >> $file
+echo "" >> $file
 echo "  def process" >> $file
 echo "    file = File.new(@file_name)" >> $file
 echo "    @data = file.readlines.map(&:chomp)" >> $file
@@ -35,13 +39,23 @@ echo "    @test_case = './lib/inputs/test_cases/day_$1_1.txt'" >> $file
 echo "    @big_test = './lib/inputs/big_tests/day_$1.txt'" >> $file
 echo "  end" >> $file
 echo "" >> $file
-echo "  it 'solves example test case' do" >> $file
+echo "  it 'solves example test case (part 1)' do" >> $file
 echo "    sol = Solution$1.new(@test_case)" >> $file
 echo "    expect(sol.run).to eq nil" >> $file
 echo "  end" >> $file
 echo "" >> $file
-echo "  it 'solves big test' do" >> $file
+echo "  it 'solves example test case (part 2)' do" >> $file
+echo "    sol = Solution$1.new(@test_case)" >> $file
+echo "    expect(sol.run_2).to eq nil" >> $file
+echo "  end" >> $file
+echo "" >> $file
+echo "  it 'solves big test (part 1)' do" >> $file
 echo "    sol = Solution$1.new(@big_test)" >> $file
 echo "    expect(sol.run).to eq nil" >> $file
+echo "  end" >> $file
+echo "" >> $file
+echo "  it 'solves big test (part 2)' do" >> $file
+echo "    sol = Solution$1.new(@big_test)" >> $file
+echo "    expect(sol.run_2).to eq nil" >> $file
 echo "  end" >> $file
 echo "end" >> $file
