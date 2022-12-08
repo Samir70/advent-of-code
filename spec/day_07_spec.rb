@@ -29,7 +29,7 @@ RSpec.describe Solution07 do
 
   it 'solves big test (part 2)' do
     sol = Solution07.new(@big_test)
-    expect(sol.run_2).to eq nil
+    expect(sol.run_2).to eq 6183184
     # 25622272 is too high
   end
 end
