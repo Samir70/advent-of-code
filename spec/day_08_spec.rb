@@ -6,7 +6,6 @@ RSpec.describe Solution08 do
     @big_test = "./lib/inputs/big_tests/day_08.txt"
   end
 
-
   it "makes keys" do
     sol = Solution08.new(@test_case)
     expect(sol.make_key("row", 1, 4, 5)).to eq "1-4"
@@ -24,9 +23,23 @@ RSpec.describe Solution08 do
     expect(sol.run).to eq 21
   end
 
+  it "counts for a particular tree" do
+    sol = Solution08.new(@test_case)
+    expect(sol.count_from([1, 2], [-1, 0])).to eq 1
+    expect(sol.count_from([1, 2], [1, 0])).to eq 2
+    expect(sol.count_from([1, 2], [0, -1])).to eq 1
+    expect(sol.count_from([1, 2], [0, 1])).to eq 2
+  end
+
+  it "finds scenic score for a tree" do
+    sol = Solution08.new(@test_case)
+    expect(sol.scenic_score(1, 2)).to eq 4
+    expect(sol.scenic_score(3, 2)).to eq 8
+  end
+
   it "solves example test case (part 2)" do
     sol = Solution08.new(@test_case)
-    expect(sol.run_2).to eq nil
+    expect(sol.run_2).to eq 8
   end
 
   it "solves big test (part 1)" do
@@ -36,6 +49,6 @@ RSpec.describe Solution08 do
 
   it "solves big test (part 2)" do
     sol = Solution08.new(@big_test)
-    expect(sol.run_2).to eq nil
+    expect(sol.run_2).to eq 327180
   end
 end
