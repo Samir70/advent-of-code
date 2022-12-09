@@ -73,6 +73,6 @@ RSpec.describe Solution09 do
 
   it "solves big test (part 2)" do
     sol = Solution09.new(@big_test)
-    expect(sol.run_2).to eq nil
+    expect(sol.run_2).to eq 2651
   end
 end
