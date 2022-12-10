@@ -1,3 +1,12 @@
+require_relative "../utils/grid"
+
+def toward_zero(n)
+  return n == 0 ? 0 : n > 0 ? n - 1 : n + 1
+end
+def away_from_zero(n)
+  return  n >= 0 ? n + 1 : n - 1
+end
+
 class Solution09
   def initialize(file_name)
     @file_name = file_name
@@ -47,48 +56,42 @@ class Solution09
         @knots[i + 1] = update_tail(@knots[i], @knots[i + 1])
       end
       @tail_visited.add(make_key(@knots[9]))
-      # puts "After #{str}: #{@knots}"
+      # grid = Grid.new(Array(@tail_visited).map {|el| el.split(", ").map(&:to_i)}, ".", "#")
+      # puts "during command #{str}: #{@knots}"
+      # grid = Grid.new(@knots + [[20, 20]], ".", "index")
+      # puts grid
     end
   end
 
   def update_tail(head, tail)
     hr, hc = head
     tr, tc = tail
-    if hr == tr
-      if tc == hc || tc == hc + 1 || tc == hc - 1
-        return tail
-      elsif hc - tc > 1
-        return [tr, tc + 1]
-      elsif tc - hc > 1
-        return [tr, tc - 1]
-      end
-    elsif hc == tc
-      if tr == hr || tr == hr + 1 || tr == hr - 1
-        return tail
-      elsif hr - tr > 1
-        return [tr + 1, tc]
-      elsif tr - hr > 1
-        return [tr - 1, tc]
-      end
-    else # Neither the col nor row are the same
-      if Math.hypot(hr - tr, hc - tc) < 2
-        return tail
-      elsif hr > tr && hc > tc # above right
-        return [tr + 1, tc + 1]
-      elsif hr > tr && hc < tc # above left
-        return [tr + 1, tc - 1]
-      elsif hr < tr && hc > tc # below right
-        return [tr - 1, tc + 1]
-      elsif hr < tr && hc < tc # below left
-        return [tr - 1, tc - 1]
-      end
-    end
-    return tail
+    dr, dc = diff_vector(head, tail)
+    modified_diff = [
+      (dc.abs == 2 && dr.abs != 2) ? away_from_zero(dr) : dr,
+      (dr.abs == 2 && dc.abs != 2) ? away_from_zero(dc) : dc
+    ]
+    tail_adjustment = [toward_zero(modified_diff[0]), toward_zero(modified_diff[1])]
+    return add_vector(tail, tail_adjustment)
   end
 
   def add_vector(a, b)
     # puts "adding #{a} and #{b}"
     return [a[0] + b[0], a[1] + b[1]]
+  end
+
+  def diff_vector(a, b)
+    # puts "diffing #{a} and #{b}"
+    return [a[0] - b[0], a[1] - b[1]]
+  end
+
+  def diff_to_req_transform(diff)
+    key_diff = "#{diff[0]}, #{diff[1]}"
+    hash = {
+      # head-tail => what tail should do
+      "-2, -1" => [-1, -1], "-2, 0" => [-1, 0], "-2, 1" => [-1, 1],
+
+    }
   end
 
   def make_key(arr)

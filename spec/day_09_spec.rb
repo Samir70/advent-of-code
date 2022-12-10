@@ -6,6 +6,26 @@ RSpec.describe Solution09 do
     @test_case_2 = "./lib/inputs/test_cases/day_09_2.txt"
     @big_test = "./lib/inputs/big_tests/day_09.txt"
   end
+
+  context "toward_zero method" do
+    it "decriments absolute value, keeping sign, never past zero" do
+      expect(toward_zero(3)).to eq 2
+      expect(toward_zero(-1)).to eq 0
+      expect(toward_zero(0)).to eq 0
+      expect(toward_zero(1)).to eq 0
+      expect(toward_zero(-3)).to eq -2
+    end
+  end
+  context "away_from_zero method" do
+    it "decriments absolute value, keeping sign, never past zero" do
+      expect(away_from_zero(3)).to eq 4
+      expect(away_from_zero(-1)).to eq -2
+      expect(away_from_zero(0)).to eq 1
+      expect(away_from_zero(1)).to eq 2
+      expect(away_from_zero(-3)).to eq -4
+    end
+  end
+
   context "One direction, 4 steps" do
     it "moves the head R 4" do
       sol = Solution09.new(@test_case)
@@ -52,27 +72,29 @@ RSpec.describe Solution09 do
     end
   end
 
-  it "solves example test case (part 1)" do
-    sol = Solution09.new(@test_case)
-    expect(sol.run).to eq 13
-  end
+  context "advent tests" do
+    it "solves example test case (part 1)" do
+      sol = Solution09.new(@test_case)
+      expect(sol.run).to eq 13
+    end
 
-  it "solves example test case (part 2)" do
-    sol = Solution09.new(@test_case)
-    expect(sol.run_2).to eq 1
-  end
-  it "solves example test case (part 2b)" do
-    sol = Solution09.new(@test_case_2)
-    expect(sol.run_2).to eq 36
-  end
+    it "solves example test case (part 2)" do
+      sol = Solution09.new(@test_case)
+      expect(sol.run_2).to eq 1
+    end
+    it "solves example test case (part 2b)" do
+      sol = Solution09.new(@test_case_2)
+      expect(sol.run_2).to eq 36
+    end
 
-  it "solves big test (part 1)" do
-    sol = Solution09.new(@big_test)
-    expect(sol.run).to eq 6354
-  end
+    it "solves big test (part 1)" do
+      sol = Solution09.new(@big_test)
+      expect(sol.run).to eq 6354
+    end
 
-  it "solves big test (part 2)" do
-    sol = Solution09.new(@big_test)
-    expect(sol.run_2).to eq 2651
+    it "solves big test (part 2)" do
+      sol = Solution09.new(@big_test)
+      expect(sol.run_2).to eq 2651
+    end
   end
 end

@@ -16,7 +16,7 @@ class Grid
 
   def to_s
     @grid.each do |row|
-      puts "#{row}"
+      puts row.join("") #"#{row}"
     end
   end
 
