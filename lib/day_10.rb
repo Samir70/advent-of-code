@@ -1,3 +1,4 @@
+require_relative "../utils/utils"
 class Solution10
   def initialize(file_name)
     @file_name = file_name
@@ -26,8 +27,8 @@ class Solution10
         crt += "."
       end
     end
-    puts "", crt
-    return nil
+    # puts "", string_to_grid(crt, 40)
+    return string_to_grid(crt, 40)
   end
 
   def noop
@@ -59,9 +60,6 @@ class Solution10
   end
 
   def print?(n)
-    if n == 10
-      puts "#{10}:::: #{@x[9]}"
-    end
     val = @x[n-1]
     if val.nil?
       puts "got nil print?(#{n})"
