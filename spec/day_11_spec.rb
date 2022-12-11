@@ -19,17 +19,19 @@ RSpec.describe Solution11 do
     expect(sol.monkeys.first.div_test).to eq 23
     expect(sol.monkeys.first.true_monkey).to eq 2
     expect(sol.monkeys.first.false_monkey).to eq 3
+    expect(sol.monkeys.first.activity).to eq 0
   end
-
+  
   it "modifys after monkey 0's turn" do
     sol = Solution11.new(@test_case)
+    sol.take_turn(0)
     expect(sol.monkeys[0].items).to eq []
     expect(sol.monkeys[1].items).to eq [54, 65, 75, 74]
     expect(sol.monkeys[2].items).to eq [79, 60, 97]
     expect(sol.monkeys[3].items).to eq [74, 500, 620]
-    sol.take_turn(0)
+    expect(sol.monkeys.first.activity).to eq 2
   end
-
+  
   describe "taking rounds" do
     it "monkeys have correct items after round 1" do
       sol = Solution11.new(@test_case)
@@ -38,6 +40,10 @@ RSpec.describe Solution11 do
       expect(sol.monkeys[1].items).to eq [2080, 25, 167, 207, 401, 1046]
       expect(sol.monkeys[2].items).to eq []
       expect(sol.monkeys[3].items).to eq []
+      expect(sol.monkeys[0].activity).to eq 2
+      expect(sol.monkeys[1].activity).to eq 4
+      expect(sol.monkeys[2].activity).to eq 3
+      expect(sol.monkeys[3].activity).to eq 5
     end
     it "monkeys have correct items after round 2" do
       sol = Solution11.new(@test_case)
@@ -67,6 +73,11 @@ RSpec.describe Solution11 do
       expect(sol.monkeys[1].items).to eq [245, 93, 53, 199, 115]
       expect(sol.monkeys[2].items).to eq []
       expect(sol.monkeys[3].items).to eq []
+      expect(sol.monkeys[0].activity).to eq 101
+      expect(sol.monkeys[1].activity).to eq 95
+      expect(sol.monkeys[2].activity).to eq 7
+      expect(sol.monkeys[3].activity).to eq 105
+      expect(sol.monkey_business).to eq 10605
     end
   end
 
