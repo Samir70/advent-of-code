@@ -90,21 +90,22 @@ RSpec.describe Solution11 do
 
   it "solves example test case (part 1)" do
     sol = Solution11.new(@test_case)
-    expect(sol.run).to eq nil
+    expect(sol.run).to eq 10605
   end
 
   it "solves example test case (part 2)" do
     sol = Solution11.new(@test_case)
-    expect(sol.run_2).to eq nil
+    expect(sol.run_2).to eq 2713310158
   end
 
   it "solves big test (part 1)" do
     sol = Solution11.new(@big_test)
-    expect(sol.run).to eq nil
+    expect(sol.run).to eq 111210
   end
 
   it "solves big test (part 2)" do
     sol = Solution11.new(@big_test)
-    expect(sol.run_2).to eq nil
+    expect(sol.run_2).to eq 15447387620
+    # 17595917630 is too high
   end
 end
