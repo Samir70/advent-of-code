@@ -13,11 +13,6 @@ RSpec.describe Solution11 do
     expect(sol.do_op(5, "*", 0)).to eq 25
   end
 
-  it "groups input by monkey" do
-    sol = Solution11.new(@test_case)
-    expect(sol.split_by_element([1, 2, 0, 4, 6, 8, 0, 9], 0)).to eq [[1, 2], [4, 6, 8], [9]]
-  end
-
   it "extracts Monkey data" do
     sol = Solution11.new(@test_case)
     expect(sol.monkeys.length).to eq 4

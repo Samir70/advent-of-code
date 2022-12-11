@@ -1,3 +1,4 @@
+require_relative "../utils/utils"
 Monkey = Struct.new(:items, :operation, :div_test, :true_monkey, :false_monkey, :activity)
 
 class Solution11
@@ -26,21 +27,6 @@ class Solution11
       play_a_round_2
     end
     return monkey_business
-  end
-
-  def split_by_element(arr, val)
-    out = []
-    group = []
-    arr.each do |line|
-      if line != val
-        group << line
-      else
-        out << group
-        group = []
-      end
-    end
-    out << group
-    return out
   end
 
   def take_turn(m)

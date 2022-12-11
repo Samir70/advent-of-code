@@ -9,3 +9,19 @@ def string_to_grid(str, width)
   end
   return out
 end
+
+def split_by_element(arr, val)
+  out = []
+  group = []
+  arr.each do |line|
+    if line != val
+      group << line
+    else
+      out << group if group.length > 0
+      group = []
+    end
+  end
+  out << group
+  return out
+end
+
