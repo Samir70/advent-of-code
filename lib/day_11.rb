@@ -11,6 +11,21 @@ class Solution11
 
   def run_2
   
+  end 
+
+  def split_by_element(arr, val)
+    out = []
+    group = []
+    arr.each do |line|
+      if line != val
+        group << line
+      else
+        out << group
+        group = []
+      end
+    end
+    out << group
+    return out
   end
 
   def process
