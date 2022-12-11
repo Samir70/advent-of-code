@@ -30,12 +30,44 @@ RSpec.describe Solution11 do
     sol.take_turn(0)
   end
 
-  it "monkeys have correct items after round 1" do
-    sol = Solution11.new(@test_case)
-    expect(sol.monkeys[0].items).to eq [20, 23, 27, 26]
-    expect(sol.monkeys[1].items).to eq [2080, 25, 167, 207, 401, 1046]
-    expect(sol.monkeys[2].items).to eq []
-    expect(sol.monkeys[3].items).to eq []
+  describe "taking rounds" do
+    it "monkeys have correct items after round 1" do
+      sol = Solution11.new(@test_case)
+      sol.play_a_round
+      expect(sol.monkeys[0].items).to eq [20, 23, 27, 26]
+      expect(sol.monkeys[1].items).to eq [2080, 25, 167, 207, 401, 1046]
+      expect(sol.monkeys[2].items).to eq []
+      expect(sol.monkeys[3].items).to eq []
+    end
+    it "monkeys have correct items after round 2" do
+      sol = Solution11.new(@test_case)
+      sol.play_a_round
+      sol.play_a_round
+      expect(sol.monkeys[0].items).to eq [695, 10, 71, 135, 350]
+      expect(sol.monkeys[1].items).to eq [43, 49, 58, 55, 362]
+      expect(sol.monkeys[2].items).to eq []
+      expect(sol.monkeys[3].items).to eq []
+    end
+    it "monkeys have correct items after round 3" do
+      sol = Solution11.new(@test_case)
+      sol.play_a_round
+      sol.play_a_round
+      sol.play_a_round
+      expect(sol.monkeys[0].items).to eq [16, 18, 21, 20, 122]
+      expect(sol.monkeys[1].items).to eq [1468, 22, 150, 286, 739]
+      expect(sol.monkeys[2].items).to eq []
+      expect(sol.monkeys[3].items).to eq []
+    end
+    it "monkeys have correct items after round 20" do
+      sol = Solution11.new(@test_case)
+      20.times do
+        sol.play_a_round
+      end
+      expect(sol.monkeys[0].items).to eq [10, 12, 14, 26, 34]
+      expect(sol.monkeys[1].items).to eq [245, 93, 53, 199, 115]
+      expect(sol.monkeys[2].items).to eq []
+      expect(sol.monkeys[3].items).to eq []
+    end
   end
 
   it "solves example test case (part 1)" do
