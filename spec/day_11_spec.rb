@@ -6,6 +6,12 @@ RSpec.describe Solution11 do
     @big_test = "./lib/inputs/big_tests/day_11.txt"
   end
 
+  it "performs operations given in text" do
+    sol = Solution11.new(@test_case)
+    expect(sol.do_op(5, "*", 6)).to eq 30
+    expect(sol.do_op(5, "+", 6)).to eq 11
+  end
+
   it "groups input by monkey" do
     sol = Solution11.new(@test_case)
     expect(sol.split_by_element([1, 2, 0, 4, 6, 8, 0, 9], 0)).to eq [[1, 2], [4, 6, 8], [9]]
@@ -21,7 +27,7 @@ RSpec.describe Solution11 do
     expect(sol.monkeys.first.false_monkey).to eq 3
     expect(sol.monkeys.first.activity).to eq 0
   end
-  
+
   it "modifys after monkey 0's turn" do
     sol = Solution11.new(@test_case)
     sol.take_turn(0)
@@ -31,7 +37,7 @@ RSpec.describe Solution11 do
     expect(sol.monkeys[3].items).to eq [74, 500, 620]
     expect(sol.monkeys.first.activity).to eq 2
   end
-  
+
   describe "taking rounds" do
     it "monkeys have correct items after round 1" do
       sol = Solution11.new(@test_case)
