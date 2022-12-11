@@ -21,6 +21,15 @@ RSpec.describe Solution11 do
     expect(sol.monkeys.first.false_monkey).to eq 3
   end
 
+  it "modifys after monkey 0's turn" do
+    sol = Solution11.new(@test_case)
+    expect(sol.monkeys[0].items).to eq []
+    expect(sol.monkeys[1].items).to eq [54, 65, 75, 74]
+    expect(sol.monkeys[2].items).to eq [79, 60, 97]
+    expect(sol.monkeys[3].items).to eq [74, 500, 620]
+    sol.take_turn(0)
+  end
+
   it "solves example test case (part 1)" do
     sol = Solution11.new(@test_case)
     expect(sol.run).to eq nil
