@@ -6,12 +6,12 @@ RSpec.describe Solution11 do
     @big_test = "./lib/inputs/big_tests/day_11.txt"
   end
 
-  it "performs operations given in text" do
-    sol = Solution11.new(@test_case)
-    expect(sol.do_op(5, "*", 6)).to eq 30
-    expect(sol.do_op(5, "+", 6)).to eq 11
-    expect(sol.do_op(5, "*", 0)).to eq 25
-  end
+  # it "performs operations given in text" do
+  #   sol = Solution11.new(@test_case)
+  #   expect(sol.do_op(5, "*", 6)).to eq 30
+  #   expect(sol.do_op(5, "+", 6)).to eq 11
+  #   expect(sol.do_op(5, "*", 0)).to eq 25
+  # end
 
   it "extracts Monkey data" do
     sol = Solution11.new(@test_case)
