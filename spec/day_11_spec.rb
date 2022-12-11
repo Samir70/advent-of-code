@@ -30,6 +30,14 @@ RSpec.describe Solution11 do
     sol.take_turn(0)
   end
 
+  it "monkeys have correct items after round 1" do
+    sol = Solution11.new(@test_case)
+    expect(sol.monkeys[0].items).to eq [20, 23, 27, 26]
+    expect(sol.monkeys[1].items).to eq [2080, 25, 167, 207, 401, 1046]
+    expect(sol.monkeys[2].items).to eq []
+    expect(sol.monkeys[3].items).to eq []
+  end
+
   it "solves example test case (part 1)" do
     sol = Solution11.new(@test_case)
     expect(sol.run).to eq nil
