@@ -31,6 +31,29 @@ class Solution11
     return out
   end
 
+  def take_turn(m)
+    monkey = @monkeys[m]
+    while monkey.items.length > 0 do
+      item = monkey.items.shift
+      item = do_op(item, monkey.operation[0], monkey.operation[1])/3
+      if item % monkey.div_test == 0
+        @monkeys[monkey.true_monkey].items << item
+      else
+        @monkeys[monkey.false_monkey].items << item
+      end
+      monkey.activity += 1
+    end
+  end
+
+  def do_op(a, op, b)
+    if op == "*"
+      return a * b
+    elsif op == "+"
+      return a + b
+    end
+    return nil
+  end
+
   def extract_monkeys
     # Monkey = Struct.new(:items, :operation, :div_test, :true_monkey, :false_monkey, :activity)
     # ["Monkey 0:", "  Starting items: 79, 98", "  Operation: new = old * 19", "  Test: divisible by 23", "    If true: throw to monkey 2", "    If false: throw to monkey 3"]
