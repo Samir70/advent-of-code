@@ -10,6 +10,7 @@ RSpec.describe Solution11 do
     sol = Solution11.new(@test_case)
     expect(sol.do_op(5, "*", 6)).to eq 30
     expect(sol.do_op(5, "+", 6)).to eq 11
+    expect(sol.do_op(5, "*", 0)).to eq 25
   end
 
   it "groups input by monkey" do
