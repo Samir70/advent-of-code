@@ -13,7 +13,7 @@ RSpec.describe Solution11 do
 
   it "extracts Monkey data" do
     sol = Solution11.new(@test_case)
-    expect(sol.monkeys.length).to 4
+    expect(sol.monkeys.length).to eq 4
     expect(sol.monkeys.first.items).to eq [79, 98]
     expect(sol.monkeys.first.operation).to eq ["*", 19]
     expect(sol.monkeys.first.div_test).to eq 23
