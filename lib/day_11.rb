@@ -33,9 +33,9 @@ class Solution11
 
   def take_turn(m)
     monkey = @monkeys[m]
-    while monkey.items.length > 0 do
+    while monkey.items.length > 0
       item = monkey.items.shift
-      item = do_op(item, monkey.operation[0], monkey.operation[1])/3
+      item = do_op(item, monkey.operation[0], monkey.operation[1]) / 3
       if item % monkey.div_test == 0
         @monkeys[monkey.true_monkey].items << item
       else
@@ -45,11 +45,23 @@ class Solution11
     end
   end
 
+  def play_a_round
+    num_monkeys = @monkeys.length
+    num_monkeys.times do |index|
+      take_turn(index)
+    end
+  end
+
+  def monkey_business
+    m1, m2 = @monkeys.sort_by! { |monkey| -monkey.activity }
+    return m1.activity * m2.activity
+  end
+
   def do_op(a, op, b)
     if op == "*"
-      return a * b
+      return a * (b == 0 ? a : b)
     elsif op == "+"
-      return a + b
+      return a + (b == 0 ? a : b)
     end
     return nil
   end
