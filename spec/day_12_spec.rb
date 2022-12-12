@@ -8,7 +8,7 @@ RSpec.describe Solution12 do
 
   it 'solves example test case (part 1)' do
     sol = Solution12.new(@test_case)
-    expect(sol.run).to eq nil
+    expect(sol.run(0,0)).to eq 31
   end
 
   it 'solves example test case (part 2)' do
@@ -18,7 +18,8 @@ RSpec.describe Solution12 do
 
   it 'solves big test (part 1)' do
     sol = Solution12.new(@big_test)
-    expect(sol.run).to eq nil
+    expect(sol.run(20,0)).to eq 0
+    # 427 is too high
   end
 
   it 'solves big test (part 2)' do
