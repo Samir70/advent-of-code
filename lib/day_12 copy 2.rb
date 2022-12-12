@@ -7,10 +7,10 @@ class Solution12
     process
     @height = @data.length
     @width = @data[0].length
-    @dist_from_s = []
+    @dist_from_e = []
     @height.times do
       row = Array.new(@width, 100000)
-      @dist_from_s << row
+      @dist_from_e << row
     end
     @stack = []
     @new_stack = []
@@ -19,52 +19,67 @@ class Solution12
   attr_reader :dist_from_e, :stack, :new_stack
 
   def run(r, c)
-    # return "ERROR, not S" if @data[r][c] != "S"
-    queue = Set.new()
-    # prevs = {}
-    for i in 0...@height
-      for j in 0...@width
-        queue.add([i, j])
-        @dist_from_s[i][j] = 100000
+    return "ERROR, not S" if @data[r][c] != "S"
+    find_e
+    count = 0
+    while @stack.length > 0 || @new_stack.length > 0 do
+      @stack = @new_stack.uniq.select {|sq| @dist_from_e[sq[0]][sq[1]] == 100000 || @dist_from_e[sq[0]][sq[1]] == 0}
+      @new_stack = []
+      if count % 100 == 0
+        puts "#{count} has stack length #{@stack.length}"
+        puts "#{stack[0..5]}"
       end
+      while @stack.length > 0 do
+        i, j = @stack.pop
+        update_dists(i, j)
+        # if i == r && j == c
+        #   return @dist_from_e[r][c]
+        # end
+      end
+      count += 1
     end
-    @dist_from_s[r][c] = 0
-
-    while queue.size > 0
-      cur = queue.min_by { |el| @dist_from_s[el[0]][el[1]] }
-      r, c = cur
-      # if @dist_from_s[r][c] < 427
-      #   puts "min from queue: #{cur}  #{@data[r][c]} has dist #{@dist_from_s[r][c]}"
-      #   # neighbours = can_go_to_from(r, c)
-      #   # puts "#{neighbours}"
-      # end
-      queue.delete(cur)
-      if @data[r][c] == "E"
-        return @dist_from_s[r][c]
-      end
-
-      neighbours = can_go_to_from(r, c)
-      neighbours.each do |n|
-        i, j = n
-        alt = @dist_from_s[r][c] + 1
-        @dist_from_s[i][j] = alt if @dist_from_s[i][j] > alt
-      end
-    end
-
-    return @dist_from_s[r][c]
+    return @dist_from_e[r][c]
   end
 
-  def run_2
-    dists_from_as = []
+  def run_2(r, c)
+    run(r, c)
+    min_dist = 9999
     for r in 0...@height do
       for c in 0...@width do
         if altitude(@data[r][c]) == 1 
-          dists_from_as << run(r, c)
-          puts "found an a: #{[r, c]}, now found #{dists_from_as.length}"
+          min_dist = @dist_from_e[r][c] if @dist_from_e[r][c] < min_dist
+          # puts "found an a: #{[r, c]}, shortest found is #{min_dist}"
         end
       end
     end
-    return dists_from_as.min
+    return min_dist
+  end
+
+  def find_e
+    for r in 0...@height
+      for c in 0...@width
+        if @data[r][c] == "E"
+          @dist_from_e[r][c] = 0
+          @new_stack << [r, c]
+          # puts "#{@dist_from_e}"
+          return true
+        end
+      end
+    end
+    return false
+  end
+
+  def update_dists(r, c)
+    ns = can_go_to_from(r, c)
+    dists = ns.map { |el| @dist_from_e[el[0]][el[1]] + 1 }
+    nearest = dists.min
+    # puts "updating dists from #{[r, c]}, dists = #{dists}"
+    if nearest < @dist_from_e[r][c]
+      @dist_from_e[r][c] = nearest 
+      # puts "found dist from #{[r, c]} = #{nearest}"
+    end
+    @new_stack.concat(poss_previous(r, c))
+    # @dist_from_e[(r-2)..(r+2)].each {|row| puts "#{row[(c-5)..(c+5)]}"}
   end
 
   def altitude(char)
