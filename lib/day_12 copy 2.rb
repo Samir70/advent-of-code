@@ -26,8 +26,8 @@ class Solution12
       @stack = @new_stack.uniq.select {|sq| @dist_from_e[sq[0]][sq[1]] == 100000 || @dist_from_e[sq[0]][sq[1]] == 0}
       @new_stack = []
       if count % 100 == 0
-        puts "#{count} has stack length #{@stack.length}"
-        puts "#{stack[0..5]}"
+        # puts "#{count} has stack length #{@stack.length}"
+        # puts "#{stack[0..5]}"
       end
       while @stack.length > 0 do
         i, j = @stack.pop
