@@ -1,11 +1,11 @@
-require_relative "../../utils/grid"
+require_relative "../../utils/grid_from_points"
 
-RSpec.describe Grid do
+RSpec.describe GridFromPoints do
   before(:each) do
     points = [
       [0, 2], [5, 7], [-3, 2], [4, -2],
     ]
-    @grid = Grid.new(points, ".", "index")
+    @grid = GridFromPoints.new(points, ".", "index")
   end
   context "finding size of grid" do
     it "finds the min row value of the points" do

@@ -1,4 +1,4 @@
-class Grid
+class GridFromPoints
   def initialize(points, blank_char, fill_char)
     @blank_char = blank_char
     @fill_char = fill_char

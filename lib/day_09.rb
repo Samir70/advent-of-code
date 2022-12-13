@@ -1,4 +1,4 @@
-require_relative "../utils/grid"
+require_relative "../utils/grid_from_points"
 
 def toward_zero(n)
   return n == 0 ? 0 : n > 0 ? n - 1 : n + 1
@@ -56,9 +56,9 @@ class Solution09
         @knots[i + 1] = update_tail(@knots[i], @knots[i + 1])
       end
       @tail_visited.add(make_key(@knots[9]))
-      # grid = Grid.new(Array(@tail_visited).map {|el| el.split(", ").map(&:to_i)}, ".", "#")
+      # grid = GridFromPoints.new(Array(@tail_visited).map {|el| el.split(", ").map(&:to_i)}, ".", "#")
       # puts "during command #{str}: #{@knots}"
-      # grid = Grid.new(@knots + [[20, 20]], ".", "index")
+      # grid = GridFromPoints.new(@knots + [[20, 20]], ".", "index")
       # puts grid
     end
   end
