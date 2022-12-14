@@ -35,5 +35,14 @@ class GridFromPoints
     end
   end
 
+  def change_point(r, c, val)
+    # co-ordinates are in the new system after recalibration
+    if r < 0 || r >= @height || c < 0 || c >= @width
+      return false
+    end
+    @grid[r][c] = val
+    return true
+  end
+
   attr_reader :min_row, :min_col, :max_col, :max_row, :width, :height, :points, :grid
 end
