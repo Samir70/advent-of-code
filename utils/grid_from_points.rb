@@ -44,5 +44,9 @@ class GridFromPoints
     return true
   end
 
+  def add_row(val)
+    @height += 1
+    @grid << Array.new(@width, val)
+  end
   attr_reader :min_row, :min_col, :max_col, :max_row, :width, :height, :points, :grid
 end
