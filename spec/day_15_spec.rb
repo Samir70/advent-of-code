@@ -45,9 +45,14 @@ RSpec.describe Solution15 do
     # expect(results[1]).to eq {8 => [[0, 16]]}
   end
 
+  it "merges intervals" do
+    sol = Solution15.new(@test_case)
+    expect(sol.merge_intervals([[12, 12], [2, 14], [2, 2], [-2, 2], [16, 24], [14, 18]])).to eq [[-2, 24]]
+  end
+
   it "solves example test case (part 1)" do
     sol = Solution15.new(@test_case)
-    expect(sol.run).to eq nil
+    expect(sol.run(10)).to eq 26
   end
 
   it "solves example test case (part 2)" do
@@ -57,7 +62,7 @@ RSpec.describe Solution15 do
 
   it "solves big test (part 1)" do
     sol = Solution15.new(@big_test)
-    expect(sol.run).to eq nil
+    expect(sol.run(2000000)).to eq 6275922
   end
 
   it "solves big test (part 2)" do
