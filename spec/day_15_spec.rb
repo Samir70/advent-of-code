@@ -6,6 +6,18 @@ RSpec.describe Solution15 do
     @big_test = './lib/inputs/big_tests/day_15.txt'
   end
 
+  it "extracts points of sensor and beacon" do
+    sol = Solution15.new(@test_case)
+    sensor, beacon = sol.extract_points("Sensor at x=2, y=18: closest beacon is at x=-2, y=15")
+    expect(sensor).to eq [2, 18]
+    expect(beacon).to eq [-2, 15]
+  end
+  it "works out manhattan distance between two points" do
+    sol = Solution15.new(@test_case)
+    expect(sol.m_dist([2, 18], [-2, 15])).to eq 7
+    expect(sol.m_dist([-2, 15], [2, 18])).to eq 7
+  end
+
   it 'solves example test case (part 1)' do
     sol = Solution15.new(@test_case)
     expect(sol.run).to eq nil
