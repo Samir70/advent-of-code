@@ -57,16 +57,18 @@ RSpec.describe Solution15 do
 
   it "solves example test case (part 2)" do
     sol = Solution15.new(@test_case)
-    expect(sol.run_2).to eq nil
+    expect(sol.run_2(20)).to eq 56000011
   end
 
   it "solves big test (part 1)" do
     sol = Solution15.new(@big_test)
     expect(sol.run(2000000)).to eq 6275922
+    # 2022-12-15T11:21:08+00:00 - 2022-12-15T11:20:55+00:00 = 21287/150 000 000 = 12sec
   end
 
   it "solves big test (part 2)" do
     sol = Solution15.new(@big_test)
-    expect(sol.run_2).to eq nil
+    expect(sol.run_2(4000000)).to eq 11747175442119
+    # 2022-12-15T11:23:19+00:00 - 2022-12-15T11:21:08+00:00 = 2421757/1600000000 = 131sec
   end
 end

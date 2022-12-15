@@ -1,3 +1,5 @@
+require "date"
+
 class Solution15
   def initialize(file_name)
     @file_name = file_name
@@ -8,6 +10,7 @@ class Solution15
   end
 
   def run(row_wanted)
+    start = DateTime.now()
     intervals = []
     beacons__on_row_wanted = Set.new()
 
@@ -25,14 +28,51 @@ class Solution15
       # puts "found #{beacons__on_row_wanted} beacons on #{row_wanted}"
       # puts ""
     end
-    merged =  merge_intervals(intervals)
+    merged = merge_intervals(intervals)
     # puts "#{intervals}"
     # puts "#{merged}"
     # puts "found #{beacons__on_row_wanted} beacons on #{row_wanted}"
+    end_time = DateTime.now()
+    puts "#{end_time} - #{start} = #{(end_time - start).to_f * 24*3600}"
     return merged.map { |el| el[1] - el[0] + 1 }.sum - beacons__on_row_wanted.size
   end
 
-  def run_2
+  def run_2(max_row)
+    start = DateTime.now()
+    intervals = {}
+
+    @data.each do |str|
+      s, b = extract_points(str)
+      # puts "found sensor at #{s}, beacon at #{b}"
+      # @sensors << s
+      # @beacons << b
+      d = m_dist(s, b)
+      no_beacons_at = manhattan_circle(s, d)
+      no_beacons_at.each do |row_info|
+        key = row_info.keys[0]
+        next if key < 0 || key > max_row
+        # puts "row_info for sensor #{s}, dist = #{d}::: #{key} => #{row_info[key]}"
+        if intervals[key] == nil
+          intervals[key] = []
+        end
+        intervals[key].concat([row_info[key]])
+      end
+      # puts "#{intervals}"
+    end
+    intervals.each do |interval|
+      key, interval_list = interval
+      next if key < 0 || key > max_row
+      interval_list = merge_intervals(interval_list)
+      # puts "Interval in loop is: #{key} :: #{interval_list}"
+      if interval_list.length == 2
+        x = interval_list[0][1] + 1
+        y = key
+        end_time = DateTime.now()
+        puts "#{end_time} - #{start} = #{(end_time - start).to_f * 24*3600}"
+        return x * 4000000 + y
+      end
+    end
+    return nil
   end
 
   def merge_intervals(arr)
@@ -41,7 +81,7 @@ class Solution15
     i = 1
     while i < arr.length
       c2 = arr[i]
-      if c2[0] <= cur[1]
+      if c2[0] <= cur[1] + 1
         cur[1] = [cur[1], c2[1]].max
       else
         out << cur
