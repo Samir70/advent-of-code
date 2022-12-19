@@ -48,22 +48,24 @@ RSpec.describe Solution19 do
 
   it "solves example test case (part 1)" do
     sol = Solution19.new(@test_case)
-    expect(sol.run(24)).to eq 33
+    geos = sol.run(24)
+    expect(sol.qual_levels(geos)).to eq 33
   end
 
   it "solves example test case (part 2)" do
     sol = Solution19.new(@test_case)
-    expect(sol.run_2).to eq nil
+    expect(sol.run_2(32)).to eq [56, 62]
   end
 
   it "solves big test (part 1)" do
     sol = Solution19.new(@big_test)
-    expect(sol.run(24)).to eq 1616
+    geos = sol.run(24)
+    expect(sol.qual_levels(geos)).to eq 1616
     # 1596 is too low
   end
 
   it "solves big test (part 2)" do
     sol = Solution19.new(@big_test)
-    expect(sol.run_2).to eq nil
+    expect(sol.run_2(32)).to eq [29, 10, 31]
   end
 end
