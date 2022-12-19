@@ -1,0 +1,4 @@
+for bp2 found max geos was 8 with order 0111122233
+for bp2 found max geos was 9 with order 01111222233
+for bp2 found max geos was 9 with order 001111222233
+for bp2 found max geos was 9 with order 0011011222233
