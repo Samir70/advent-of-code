@@ -26,13 +26,6 @@ class Solution19
           max_geo = materials[3] if materials[3] > max_geo
           if options[3]
             new_stack << [add_vector(robots, [0, 0, 0, 1]), subtract_vector(materials, bp.geode)]
-            # elsif options[2]
-            #   new_stack << [robots, materials]
-            # elsif options[1]
-            #   new_stack << [add_vector(robots, [0, 1, 0, 0]), subtract_vector(materials, bp.clay)]
-            #   new_stack << [robots, materials]
-            # elsif options[0] && robots[0] < 4
-            #   new_stack << [robots, materials]
           else
             new_stack << [add_vector(robots, [0, 0, 1, 0]), subtract_vector(materials, bp.obsidian)] if options[2]
             new_stack << [add_vector(robots, [0, 1, 0, 0]), subtract_vector(materials, bp.clay)] if options[1]
@@ -46,7 +39,7 @@ class Solution19
         # puts "score of last: #{score(new_stack.last[0], minutes - time, new_stack.last[1], bp.costs)}"
         # puts "stack: #{new_stack.length}"
       end
-      puts "for bp #{bp_id + 1} max_geo was #{max_geo}"
+      # puts "for bp #{bp_id + 1} max_geo was #{max_geo}"
       geodes << max_geo #* (bp_id + 1)
     end
     return geodes
