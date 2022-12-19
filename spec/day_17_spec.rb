@@ -186,4 +186,10 @@ RSpec.describe Solution17 do
     # 1564 699 417 112 is too low
     # 1564 705 882 327
   end
+
+  # it "plays with doctored input" do
+  #   new_input = "./lib/inputs/big_tests/day_17_b.txt"
+  #   sol = Solution17.new(new_input)
+  #   sol.get_diffs(22000)
+  # end
 end
