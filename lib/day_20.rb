@@ -8,10 +8,16 @@ class Solution20
   def run
     m = MyList.new(@data)
     m.mix
-    return [1000, 2000, 3000].map {|el| m.get(el)}.sum
+    return [1000, 2000, 3000].map { |el| m.get(el) }.sum
   end
 
   def run_2
+    m = MyList.new(@data.map {|el| el * 811589153})
+    10.times do
+      m.mix
+      # puts "list is: #{m.list}"
+    end
+    return [1000, 2000, 3000].map { |el| m.get(el) }.sum
   end
 
   def process
@@ -23,40 +29,53 @@ end
 
 class MyList
   def initialize(arr)
-    @arr = arr.map { |el| [el, false] }
+    @arr = arr.map.with_index(0) { |el, i| { val: el, jump: el % (arr.length - 1), new_idx: i } }
   end
-  
+
   def list
-    return @arr.map {|el| el[0]}
+    arr = [].concat(@arr)
+    # arr.each do |el|
+    #   puts el
+    # end
+    return arr.sort_by! {|el| el[:new_idx] }.map { |el| el[:val] }
+  end
+
+  def normalise(val, base)
+    val += base while val <= 0
+    val -= base while val > base
+    return val
   end
 
   def mix
     len = @arr.length
-    done = 0
-    i = 0
-    while done < len do
-      i += 1 while @arr[i][1] 
-      val = @arr[i][0]
-      destination = i + val
-      destination += len - 1 while destination <= 0 
-      destination -= len - 1 while destination >= len
-      if i < destination
-        @arr.delete_at(i)
-        @arr.insert(destination, [val, true])
-      elsif destination < i
-        @arr.delete_at(i)
-        @arr.insert(destination, [val, true])
-      else
-        @arr[i] = [val, true]
+    len.times do |i|
+      cur = @arr[i]
+      # puts "cur: #{cur}"
+      dest = normalise(cur[:new_idx] + cur[:jump], len - 1)
+      @arr.each do |el|
+        # puts "thinking about changing: #{el}"
+        if  cur[:new_idx] < dest
+          if cur[:new_idx] < el[:new_idx] && el[:new_idx] <= dest
+            el[:new_idx] -= 1
+          end
+        elsif dest < cur[:new_idx]
+          if dest <= el[:new_idx] && el[:new_idx] < cur[:new_idx]
+            el[:new_idx] += 1
+          end
+        end
+        # puts "it has become:           #{el}"
       end
-      # puts "i, val, dest: #{[i, val, destination]} gives #{list}"
-      done += 1
+      cur[:new_idx] = dest
+      # puts "cur: #{cur}"
+      # puts "#{list}"
     end
   end
 
   def get(n)
-    idx_zero = @arr.index { |el| el[0] == 0 }
+    idx_zero = @arr.select { |el| el[:val] == 0 }[0][:new_idx]
     return nil if idx_zero == nil
-    return @arr[(n + idx_zero) % @arr.length][0]
+    target_index = (n + idx_zero) % @arr.length
+    # puts "idx of zero is #{idx_zero}, target: #{target_index}"
+    return @arr.select { |el| el[:new_idx] == target_index }[0][:val]
   end
 end
