@@ -39,6 +39,8 @@ def do_op(*args)
     return a * b # day_11 used (b == 0 ? a : b)
   elsif op == "/"
     return a / b
+  elsif op == "//"
+    return a / b.to_f
   elsif op == "+"
     return a + b
   elsif op == "-"

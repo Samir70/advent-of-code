@@ -61,8 +61,8 @@ RSpec.describe Solution21 do
 
   it "solves big test (part 2)" do
     left = 0
-    # right = 200860392214380
-    right = 3219579395610
+    right = 200860392214380
+    # right = 3219579395610
     mid = 0
     pgtp = 0
     vrvh = 0
@@ -73,15 +73,15 @@ RSpec.describe Solution21 do
       pgtp = sol.graph.vertices["pgtp"][:action]
       vrvh = sol.graph.vertices["vrvh"][:action]
       # puts "humn: #{mid}, pgpt: #{pgtp}, vrvh: #{vrvh}"
-      if pgtp == vrvh
+      if pgtp.to_i == vrvh.to_i
         left = right + 1
       elsif pgtp > vrvh
         left = mid + 1
       else
-        right = mid - 1
+        right = mid 
       end
     end
-    mid = nil if pgtp != vrvh
+    mid = nil if pgtp.to_i != vrvh.to_i
     expect(mid).to eq 3219579395609
     # 3219579395610 is too big
   end

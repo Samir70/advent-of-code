@@ -49,8 +49,10 @@ class Solution21
       action = action.to_i
     else
       action = action.split(" ")
+      action[1] = "//" if action[1] == "/"
       prevs << action[0]
       prevs << action[2]
+      # puts "#{monkey}, action: #{action}"
     end
     return { :name => monkey, :action => action, :prevs => prevs, :afters => [] }
   end
