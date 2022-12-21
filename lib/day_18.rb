@@ -40,7 +40,7 @@ class Solution18
       adj = p.neighbours
       to_remove << point if adj.any? { |el| !interior_points.include?(el) && @grid.check(el[0], el[1], el[2]) != true }
     end
-    puts "to remove: #{to_remove}"
+    # puts "to remove: #{to_remove}"
     while to_remove.length > 0
       x, y, z = to_remove.pop
       p = Point3D.new(x, y, z)
