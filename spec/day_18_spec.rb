@@ -56,7 +56,7 @@ RSpec.describe Solution18 do
     interiors = sol.run_2
     sol2 = Solution18.new(interiors)
     # finds 1040 interior points
-    puts "#{interiors.length}"
+    # puts "#{interiors.length}"
     expect(3374 - sol2.run).to eq 2010
     # 1998 is too low
   end
