@@ -21,16 +21,23 @@ class GridFromStrings
     for c in 0...@cols do
         out << @grid.map {|row| row[@cols - 1 - c]}
     end
-    @grid = []
-    out.each {|row| @grid << row}
+    out.map! {|r| r.join("")}
+    return GridFromStrings.new(out)
+  end
+
+  def self.add(*grids)
+    out = []
+    grids[0].rows.times do |r|
+        row = ""
+        grids.each { |g| row += g.grid[r].join("")}
+        out << row
+    end
     return out
   end
 
-  def self.add(a, b)
-    out = []
-    a.rows.times do |r|
-        out << a.grid[r].join("") + b.grid[r].join("")
+  def to_s
+    @grid.each do |row|
+        puts row.join("")
     end
-    return out
   end
 end

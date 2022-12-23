@@ -11,18 +11,17 @@ RSpec.describe GridFromStrings do
 
   it "rotates the grid" do
     g = GridFromStrings.new(["...#", ".#..", "#...", "...."])
-    g.rotate
-    expect(g.grid.first.join("")).to eq "#..."
-    expect(g.grid[1].join("")).to eq "...."
-    expect(g.grid[2].join("")).to eq ".#.."
-    expect(g.grid.last.join("")).to eq "..#."
+    new_g = g.rotate
+    expect(new_g.grid[0].join("")).to eq "#..."
+    expect(new_g.grid[1].join("")).to eq "...."
+    expect(new_g.grid[2].join("")).to eq ".#.."
+    expect(new_g.grid[3].join("")).to eq "..#."
   end
 
   it "can add two grids together" do
     g1 = GridFromStrings.new(["...#", ".#..", "#...", "...."])
     g2 = GridFromStrings.new(["...#", ".#..", "#...", "####"])
     res = GridFromStrings.add(g1, g2)
-    puts "#{res}"
     expect(res).to eq ["...#...#", ".#...#..", "#...#...", "....####"]
   end
 end
