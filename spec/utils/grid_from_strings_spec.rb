@@ -17,4 +17,12 @@ RSpec.describe GridFromStrings do
     expect(g.grid[2].join("")).to eq ".#.."
     expect(g.grid.last.join("")).to eq "..#."
   end
+
+  it "can add two grids together" do
+    g1 = GridFromStrings.new(["...#", ".#..", "#...", "...."])
+    g2 = GridFromStrings.new(["...#", ".#..", "#...", "####"])
+    res = GridFromStrings.add(g1, g2)
+    puts "#{res}"
+    expect(res).to eq ["...#...#", ".#...#..", "#...#...", "....####"]
+  end
 end

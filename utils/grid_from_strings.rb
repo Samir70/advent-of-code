@@ -25,4 +25,12 @@ class GridFromStrings
     out.each {|row| @grid << row}
     return out
   end
+
+  def self.add(a, b)
+    out = []
+    a.rows.times do |r|
+        out << a.grid[r].join("") + b.grid[r].join("")
+    end
+    return out
+  end
 end
