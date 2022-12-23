@@ -86,13 +86,8 @@ RSpec.describe Solution22 do
     expect(sol.grid.step_up(9, 16)).to eq [12, 16]
   end
 
-  it "can step right on the cube" do
-    sol = Solution22.new(@test_case)
-    expect(sol.grid.cube_right(4, 9)).to eq [[4, 10], 0]
-    expect(sol.grid.cube_right(4, 12)).to eq [[9, 16], 2]
-    expect(sol.grid.cube_right(7, 12)).to eq [[9, 14], 1]
-    expect(sol.grid.cube_right(9, 16)).to eq [[4, 9], 2]
-    expect(sol.grid.cube_right(12, 16)).to eq [[12, 16], 0]
+  it "adds teleport co-ordinates for edges of net" do
+    
   end
 
   it "solves example test case (part 1)" do
