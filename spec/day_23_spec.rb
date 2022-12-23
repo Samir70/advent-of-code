@@ -11,7 +11,7 @@ it "finds location after a journey" do
 end
 
   it "finds nswe of a point" do
-    expect(nswe(1, 5)).to eq [[[0,4], [0, 5], [0, 6]], [[2,4], [2,5], [2,6]], [[2,4], [1,4], [0,4]], [[2,6], [1,6], [0,6]]]
+    expect(nswe([1, 5])).to eq [[[0,4], [0, 5], [0, 6]], [[2,4], [2,5], [2,6]], [[2,4], [1,4], [0,4]], [[2,6], [1,6], [0,6]]]
   end
 
   it "loads data as a flexi-grid" do
@@ -24,19 +24,31 @@ end
     expect(sol.grid.elf_at([1, 5])).to eq true
   end
 
+  it "converts nswe to options for an elf" do
+    sol = Solution23.new(@test_case)
+    expect(sol.options([1, 5])).to eq [true, false, false, true]
+    expect(sol.options([2, 4])).to eq [false, false, false, false]
+    expect(sol.options([5, 1])).to eq [false, false, true, false]
+  end
+
+  it "reports number of empties in grid" do
+    sol = Solution23.new(@test_case)
+    expect(sol.grid.empties).to eq 27
+  end
+
   it 'solves example test case (part 1)' do
     sol = Solution23.new(@test_case)
-    expect(sol.run).to eq nil
+    expect(sol.run).to eq 110
+  end
+  it 'solves big test (part 1)' do
+    sol = Solution23.new(@big_test)
+    expect(sol.run).to eq 3871
+    # 4031 is too high
   end
 
   it 'solves example test case (part 2)' do
     sol = Solution23.new(@test_case)
     expect(sol.run_2).to eq nil
-  end
-
-  it 'solves big test (part 1)' do
-    sol = Solution23.new(@big_test)
-    expect(sol.run).to eq nil
   end
 
   it 'solves big test (part 2)' do

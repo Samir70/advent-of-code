@@ -9,9 +9,50 @@ class Solution23
   attr_reader :grid
 
   def run
+    d = 3
+    10.times do
+      d = (d + 1) % 4
+      proposals = {}
+      @grid.elves.each do |elf|
+        opts = options(elf)
+        next if opts.all? 
+        # puts "#{opts}" if elf == [0, 5]
+        d_rot = 0
+        while opts[(d + d_rot) % 4] == false && d_rot < 4
+          d_rot += 1
+        end
+        chosen_d = opts[(d + d_rot) % 4] ? "nswe"[(d + d_rot) % 4] : ""
+        if chosen_d != ""
+          new_loc = add_vector(elf, Dirs[chosen_d])
+          if proposals[new_loc] == nil
+            proposals[new_loc] = elf
+          else
+            proposals[new_loc] = "too popular"
+          end
+        else
+          new_loc = nil
+        end
+        # puts "elf #{elf} wants to go #{chosen_d} to #{new_loc}"
+      end
+      # puts "#{proposals}"
+      proposals.each do |prop|
+        # puts "#{prop}"
+        new_loc, old_loc = prop
+        next if old_loc == "too popular"
+        @grid.move_elf(old_loc, new_loc)
+      end
+      # puts @grid
+    end
+    return @grid.empties
   end
 
   def run_2
+  end
+
+  def options(elf)
+    return nswe(elf).map do |d|
+             d.map { |loc| grid.elf_at(loc) }
+           end.map { |d| d.all? { |bool| bool == false } }
   end
 
   def process
@@ -62,11 +103,11 @@ def make_journey(loc, route)
   return out
 end
 
-def nswe(r, c)
-  north = ["nw", "n", "ne"].map { |journey| make_journey([r, c], journey) }
-  south = ["sw", "s", "se"].map { |journey| make_journey([r, c], journey) }
-  west = ["sw", "w", "nw"].map { |journey| make_journey([r, c], journey) }
-  east = ["se", "e", "ne"].map { |journey| make_journey([r, c], journey) }
+def nswe(loc)
+  north = ["nw", "n", "ne"].map { |journey| make_journey(loc, journey) }
+  south = ["sw", "s", "se"].map { |journey| make_journey(loc, journey) }
+  west = ["sw", "w", "nw"].map { |journey| make_journey(loc, journey) }
+  east = ["se", "e", "ne"].map { |journey| make_journey(loc, journey) }
   return [north, south, west, east]
 end
 
@@ -93,14 +134,30 @@ class FlexiGrid
     end
   end
 
+  def move_elf(old_loc, new_loc)
+    r, c = new_loc
+    @elves.delete(old_loc)
+    @elves.add(new_loc)
+    @min_row = r if r < @min_row
+    @max_row = r if r > @max_row
+    @min_col = c if c < @min_col
+    @max_col = c if c > @max_col
+  end
+
+  def empties
+    width = @max_row - @min_row + 1
+    length = @max_col - @min_col + 1
+    return length * width - @elves.length
+  end
+
   def elf_at(loc)
     return @elves.include?(loc)
   end
 
   def to_s
-    for r in @min_row..@max_row do
+    for r in @min_row..@max_row
       row = ""
-      for c in @min_col..@max_col do
+      for c in @min_col..@max_col
         row += elf_at([r, c]) ? "#" : "."
       end
       puts row
