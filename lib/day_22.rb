@@ -30,7 +30,7 @@ class Solution22
           end
         end
       end
-      puts "Followed step #{step}\nNow at #{@loc}, facing dir #{d.dir}"
+      # puts "Followed step #{step}\nNow at #{@loc}, facing dir #{d.dir}"
     end
     r, c = @loc
     return 1000 * r + 4 * c + d.dir
