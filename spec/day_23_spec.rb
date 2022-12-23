@@ -38,21 +38,21 @@ end
 
   it 'solves example test case (part 1)' do
     sol = Solution23.new(@test_case)
-    expect(sol.run).to eq 110
+    expect(sol.run(10)).to eq 110
   end
   it 'solves big test (part 1)' do
     sol = Solution23.new(@big_test)
-    expect(sol.run).to eq 3871
+    expect(sol.run(10)).to eq 3871
     # 4031 is too high
   end
 
   it 'solves example test case (part 2)' do
     sol = Solution23.new(@test_case)
-    expect(sol.run_2).to eq nil
+    expect(sol.run(100)).to eq 20
   end
 
   it 'solves big test (part 2)' do
     sol = Solution23.new(@big_test)
-    expect(sol.run_2).to eq nil
+    expect(sol.run(1000)).to eq 925
   end
 end

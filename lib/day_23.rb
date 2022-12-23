@@ -8,9 +8,9 @@ class Solution23
 
   attr_reader :grid
 
-  def run
+  def run(reps)
     d = 3
-    10.times do
+    reps.times do |rep_count|
       d = (d + 1) % 4
       proposals = {}
       @grid.elves.each do |elf|
@@ -34,7 +34,11 @@ class Solution23
         end
         # puts "elf #{elf} wants to go #{chosen_d} to #{new_loc}"
       end
+      if proposals.length == 0
+        return rep_count + 1
+      end
       # puts "#{proposals}"
+      # puts "#{rep_count + 1}" if rep_count % 20 == 0
       proposals.each do |prop|
         # puts "#{prop}"
         new_loc, old_loc = prop
