@@ -33,7 +33,7 @@ RSpec.describe Solution24 do
 
   it "calculates visit times for each square" do
     sol = Solution24.new(@test_case)
-    sol.run
+    sol.run([[6, 7]])
     expect(sol.storm_at[0][0]).to eq Set.new()
     expect(sol.storm_at[2][2]).to eq Set.new([0, 6, 5, 11, 3, 9])
     expect(sol.storm_at[3][3]).to eq Set.new([0, 6, 3, 9, 4, 10, 3, 7, 11, 2, 6, 10])
@@ -41,22 +41,22 @@ RSpec.describe Solution24 do
 
   it 'solves example test case (part 1)' do
     sol = Solution24.new(@test_case)
-    expect(sol.run).to eq 18
+    expect(sol.run([[6, 7]])).to eq 18
   end
 
   it 'solves example test case (part 2)' do
     sol = Solution24.new(@test_case)
-    expect(sol.run_2).to eq nil
+    expect(sol.run([[6, 7], [1, 2], [6, 7]])).to eq 54
   end
 
   it 'solves big test (part 1)' do
     sol = Solution24.new(@big_test)
-    expect(sol.run).to eq 221
+    expect(sol.run([[37, 101]])).to eq 221
     # 187 is too low
   end
 
   it 'solves big test (part 2)' do
     sol = Solution24.new(@big_test)
-    expect(sol.run_2).to eq nil
+    expect(sol.run([[37, 101], [1, 2], [37, 101]])).to eq 739
   end
 end

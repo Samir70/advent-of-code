@@ -18,7 +18,7 @@ class Solution24
 
   attr_reader :width, :height, :lcm, :storm_at
 
-  def run
+  def run(targets)
     find_storm_times
     loc = [1, 2, 0] #row, col, time
     visited = Set.new()
@@ -26,25 +26,39 @@ class Solution24
     new_stack = [loc]
     stack = []
     max_r = 0
+    target = targets.pop
+    target_not_found = true
     while new_stack.length > 0
       stack = [].concat(new_stack)
       new_stack = []
-      while stack.length > 0
+      target_not_found = true
+      while stack.length > 0 && target_not_found
         r, c, t = stack.pop()
         t += 1
         t_mod = t % @lcm
-        new_stack << [r, c, t] if !visited.include?([r, c, t_mod]) && !@storm_at[r][c].include?(t_mod)
+        new_stack << [r, c, t] if !visited.include?([r, c, t_mod]) && (r == @height + 2 || !@storm_at[r][c].include?(t_mod))
         # puts "i was at #{[r, c]} at time #{t - 1}"
         neighbours = Point2D.neighbours(r, c)
         neighbours.each do |nr, nc|
-          return t if (nr == @height + 2) && (nc == @width + 1)
-          next if nr<2 || nr > @height + 1 || nc < 2 || nc > @width + 1 || visited.include?([nr, nc, t_mod])
-          # puts "considering #{[nr, nc]} time #{t}" if nr >= max_r
-          if !@storm_at[nr][nc].include?(t_mod)
-            # puts "can go to #{[nr, nc]}"
-            max_r = nr if nr > max_r
-            visited.add([nr, nc, t_mod])
-            new_stack << [nr, nc, t]
+          if [nr, nc] == target
+            # puts "Found #{target} at time #{t}"
+            return t if targets.length == 0
+            # stack = []
+            target_not_found = false
+            new_stack = [[nr, nc, t]]
+            target = targets.pop
+            # puts "Looking for #{target}"
+            visited = Set.new()
+          else
+            next if !target_not_found
+            next if nr < 2 || nr > @height + 1 || nc < 2 || nc > @width + 1 || visited.include?([nr, nc, t_mod])
+            # puts "considering #{[nr, nc]} time #{t}" if nr >= max_r
+            if !@storm_at[nr][nc].include?(t_mod)
+              # puts "can go to #{[nr, nc]}"
+              max_r = nr if nr > max_r
+              visited.add([nr, nc, t_mod])
+              new_stack << [nr, nc, t]
+            end
           end
         end
       end
@@ -52,7 +66,6 @@ class Solution24
     display(visited)
     return nil
   end
-
 
   def display(s)
     h = {}
@@ -64,6 +77,7 @@ class Solution24
       puts "#{k} => #{h[k]}"
     end
   end
+
   def find_storm_times
     for r in 1..@height
       for c in 1..@width
