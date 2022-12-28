@@ -12,18 +12,22 @@ class Solution16
   def run
     make_edges
     new_stack = []
+    # original_opened = []
+    # original_opened = ["BB", "DD", "HH", "EE"] # test data
+    original_opened = ["BB", "DD", "HH", "EE", "GF", "EK", "AW", "YQ", "XR", "DT", "CD"] # big data
     counter = 0
     max_gas = 0
     @graph["AA"][:gas_when_visited_at_t][30] = 0
-    move_stack = next_moves("AA", []).map {|e| Move.new(30, 0, [], e)}
+    move_stack = next_moves("AA", original_opened).map {|e| Move.new(26, 0, original_opened, e)}
     while move_stack.length > 0 || new_stack.length > 0 do
       visits_to_update = []
       while move_stack.length > 0 do
         cur = move_stack.pop()
         time, gas, opened, cur_loc = cur.execute
         visits_to_update << [cur_loc, gas, time]
-        if time >= 0
-          max_gas = gas if gas > max_gas
+        if time >= 0 && gas > max_gas
+          max_gas = gas 
+          puts "max gas is #{max_gas}, opened: #{opened}"
         end
         follow_this = false #opened.join(",").start_with?("DD,BB,JJ")
         puts "#{cur} #{[time, gas, opened, cur_loc]}" if follow_this
@@ -33,16 +37,18 @@ class Solution16
           good_move = true
           good_move = false if time - edge.cost < 0
           good_move = false if @graph[edge.destination][:gas_when_visited_at_t][time] > gas
+          good_move = false if original_opened.include?(edge.destination)
           puts "#{edge}, good?#{good_move}" if follow_this
           new_stack << Move.new(time, gas, [].concat(opened), edge) if good_move
         end
       end
-      # puts "counter: #{counter}, gas: #{max_gas}, new_stack has #{new_stack.length} moves"
+      puts "counter: #{counter}, gas: #{max_gas}, new_stack has #{new_stack.length} moves"
       # puts "visits to update #{visits_to_update}"
       visits_to_update.each do |loc, gas, time|
         @graph[loc][:gas_when_visited_at_t][time] = gas if gas > @graph[loc][:gas_when_visited_at_t][time]
       end
-      move_stack.concat(new_stack) if counter < 30
+      new_stack.sort_by! {|m| -m.gas_released}
+      move_stack.concat(new_stack[0..10000]) if counter < 30
       counter += 1
       new_stack = []
     end
@@ -96,7 +102,7 @@ class Move
     @open_valves = open_valves
     @edge_to_follow = edge
   end
-
+  attr_reader :gas_released
   def execute
     # puts "executing #{[@time_left, @gas_released, @open_valves]} #{@edge_to_follow}" if @open_valves[0] == "DD"
     t = @time_left - @edge_to_follow.cost

@@ -1,9 +1,8 @@
-require "day_22"
+require "day_22 copy"
 
 RSpec.describe Solution22 do
   before(:each) do
     @test_case = "./lib/inputs/test_cases/day_22_1.txt"
-    @test_case2 = "./lib/inputs/test_cases/day_22_1_full_net.txt"
     @big_test = "./lib/inputs/big_tests/day_22.txt"
   end
 
@@ -35,94 +34,56 @@ RSpec.describe Solution22 do
     expect(d.vector).to eq [0, 1]
   end
 
-  it "extracts the points from data" do
-    sol = Solution22.new(@test_case)
-    expect(sol.loc).to eq [1, 9]
-    expect(sol.points.first).to eq [1, 9, "."]
-    expect(sol.points).to_not include [1, 8, " "]
-    expect(sol.points).to include [1, 12, "#"]
-    expect(sol.points).to include [12, 15, "#"]
-    expect(sol.points.last).to eq [12, 16, "."]
-  end
-
   it "extracts faces from data" do
     sol = Solution22.new(@test_case)
-    expect(sol.faces.first).to eq ["...#", ".#..", "#...", "...."]
-    expect(sol.faces[1]).to eq ["...#", "....", "..#.", "...."]
-    expect(sol.faces[2]).to eq ["....", "....", "...#", "...."]
-    expect(sol.faces[3]).to eq ["...#", "#...", "....", "..#."]
-    expect(sol.faces[4]).to eq ["...#","....",".#..","...."]
-    expect(sol.faces.last).to eq ["....",".#..","....","..#."]
+    expect(sol.faces.first.rows).to eq ["...#", ".#..", "#...", "...."]
+    expect(sol.faces[1].rows).to eq ["...#", "....", "..#.", "...."]
+    expect(sol.faces[2].rows).to eq ["....", "....", "...#", "...."]
+    expect(sol.faces[3].rows).to eq ["...#", "#...", "....", "..#."]
+    expect(sol.faces[4].rows).to eq ["...#","....",".#..","...."]
+    expect(sol.faces.last.rows).to eq ["....",".#..","....","..#."]
   end
 
-  it "makes a full net" do
-    sol = Solution22.new(@test_case)
-    res = sol.make_full_net
-    expect(res.length).to eq 12
-  end
-
-  it "loads the map and instrucitons" do
+  it "loads the instrucitons" do
     sol = Solution22.new(@test_case)
     expect(sol.instructions).to eq [10, "R", 5, "L", 5, "R", 10, "L", 4, "R", 5, "L", 5]
-    expect(sol.grid.read(6, 9)).to eq "#"
-    expect(sol.grid.read(5, 12)).to eq "#"
-    expect(sol.grid.read(4, 8)).to eq nil
-    puts sol.grid
   end
 
-  it "can step right in the grid" do
-    sol = Solution22.new(@test_case)
-    expect(sol.grid.step_right(4, 9)).to eq [4, 10]
-    expect(sol.grid.step_right(5, 11)).to eq [5, 11]
-    expect(sol.grid.step_right(3, 12)).to eq [3, 12]
-    expect(sol.grid.step_right(6, 12)).to eq [6, 1]
-    expect(sol.grid.step_right(11, 16)).to eq [11, 9]
-  end
-  it "can step left in the grid" do
-    sol = Solution22.new(@test_case)
-    expect(sol.grid.step_left(5, 5)).to eq [5, 5]
-    expect(sol.grid.step_left(10, 12)).to eq [10, 11]
-    expect(sol.grid.step_left(4, 9)).to eq [4, 12]
-    expect(sol.grid.step_left(1, 9)).to eq [1, 9]
-    expect(sol.grid.step_left(11, 9)).to eq [11, 16]
-  end
-  it "can step down in the grid" do
-    sol = Solution22.new(@test_case)
-    expect(sol.grid.step_down(4, 9)).to eq [5, 9]
-    expect(sol.grid.step_down(5, 9)).to eq [5, 9]
-    expect(sol.grid.step_down(8, 8)).to eq [5, 8]
-    expect(sol.grid.step_down(12, 12)).to eq [12, 12]
-    expect(sol.grid.step_down(12, 9)).to eq [1, 9]
-  end
-  it "can step up in the grid" do
-    sol = Solution22.new(@test_case)
-    expect(sol.grid.step_up(4, 9)).to eq [4, 9]
-    expect(sol.grid.step_up(5, 9)).to eq [4, 9]
-    expect(sol.grid.step_up(5, 8)).to eq [8, 8]
-    expect(sol.grid.step_up(9, 15)).to eq [9, 15]
-    expect(sol.grid.step_up(9, 16)).to eq [12, 16]
-  end
-
-  xit "can step right on the cube" do
-    sol = Solution22.new(@test_case)
-    expect(sol.grid.cube_right(4, 9)).to eq [[4, 10], 0]
-    expect(sol.grid.cube_right(4, 12)).to eq [[9, 16], 2]
-    expect(sol.grid.cube_right(7, 12)).to eq [[9, 14], 1]
-    expect(sol.grid.cube_right(9, 16)).to eq [[4, 9], 2]
-    expect(sol.grid.cube_right(12, 16)).to eq [[12, 16], 0]
-  end
-
-  it "solves example test case (part 1)" do
-    sol = Solution22.new(@test_case)
-    expect(sol.run).to eq 6032
-  end
-  it "solves big test (part 1)" do
-    sol = Solution22.new(@big_test)
-    expect(sol.run).to eq 31568
-  end
+  # it "can step right in the grid" do
+  #   sol = Solution22.new(@test_case)
+  #   expect(sol.grid.step_right(4, 9)).to eq [4, 10]
+  #   expect(sol.grid.step_right(5, 11)).to eq [5, 11]
+  #   expect(sol.grid.step_right(3, 12)).to eq [3, 12]
+  #   expect(sol.grid.step_right(6, 12)).to eq [6, 1]
+  #   expect(sol.grid.step_right(11, 16)).to eq [11, 9]
+  # end
+  # it "can step left in the grid" do
+  #   sol = Solution22.new(@test_case)
+  #   expect(sol.grid.step_left(5, 5)).to eq [5, 5]
+  #   expect(sol.grid.step_left(10, 12)).to eq [10, 11]
+  #   expect(sol.grid.step_left(4, 9)).to eq [4, 12]
+  #   expect(sol.grid.step_left(1, 9)).to eq [1, 9]
+  #   expect(sol.grid.step_left(11, 9)).to eq [11, 16]
+  # end
+  # it "can step down in the grid" do
+  #   sol = Solution22.new(@test_case)
+  #   expect(sol.grid.step_down(4, 9)).to eq [5, 9]
+  #   expect(sol.grid.step_down(5, 9)).to eq [5, 9]
+  #   expect(sol.grid.step_down(8, 8)).to eq [5, 8]
+  #   expect(sol.grid.step_down(12, 12)).to eq [12, 12]
+  #   expect(sol.grid.step_down(12, 9)).to eq [1, 9]
+  # end
+  # it "can step up in the grid" do
+  #   sol = Solution22.new(@test_case)
+  #   expect(sol.grid.step_up(4, 9)).to eq [4, 9]
+  #   expect(sol.grid.step_up(5, 9)).to eq [4, 9]
+  #   expect(sol.grid.step_up(5, 8)).to eq [8, 8]
+  #   expect(sol.grid.step_up(9, 15)).to eq [9, 15]
+  #   expect(sol.grid.step_up(9, 16)).to eq [12, 16]
+  # end
 
   it "solves example test case (part 2)" do
-    sol = Solution22.new(@test_case2)
+    sol = Solution22.new(@test_case)
     expect(sol.run).to eq 5031
   end
 
