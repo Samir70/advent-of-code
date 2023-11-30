@@ -1,6 +1,6 @@
 echo "making a file for solution Ruby code"
-touch ./lib/day_$1.rb
-file="./lib/day_$1.rb"
+touch ./lib/2023day_$1.rb
+file="./lib/2023day_$1.rb"
 echo "class Solution$1" > $file
 echo "  def initialize(file_name)" >> $file
 echo "    @file_name = file_name" >> $file
@@ -24,19 +24,19 @@ echo "  end" >> $file
 echo "end" >> $file
 
 echo "Making a file for test_case"
-touch ./lib/inputs/test_cases/day_$1_1.txt
+touch ./lib/inputs/test_cases/2023day_$1_1.txt
 echo "Making a file for the big test"
-touch ./lib/inputs/big_tests/day_$1.txt
+touch ./lib/inputs/big_tests/2023day_$1.txt
 
 echo "Setting up a spec file for day $1"
-touch ./spec/day_$1_spec.rb
-file="./spec/day_$1_spec.rb"
-echo "require 'day_$1'" > $file
+touch ./spec/2023day_$1_spec.rb
+file="./spec/2023day_$1_spec.rb"
+echo "require '2023day_$1'" > $file
 echo "" >> $file
 echo "RSpec.describe Solution$1 do" >> $file
 echo "  before(:each) do" >> $file
-echo "    @test_case = './lib/inputs/test_cases/day_$1_1.txt'" >> $file
-echo "    @big_test = './lib/inputs/big_tests/day_$1.txt'" >> $file
+echo "    @test_case = './lib/inputs/test_cases/2023day_$1_1.txt'" >> $file
+echo "    @big_test = './lib/inputs/big_tests/2023day_$1.txt'" >> $file
 echo "  end" >> $file
 echo "" >> $file
 echo "  it 'solves example test case (part 1)' do" >> $file
