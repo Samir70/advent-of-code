@@ -1,9 +1,9 @@
-require "day_10"
+require_relative "../lib/day_10"
 
 RSpec.describe Solution10 do
   before(:each) do
-    @test_case = "./lib/inputs/test_cases/day_10_1.txt"
-    @big_test = "./lib/inputs/big_tests/day_10.txt"
+    @test_case = "../lib/inputs/test_cases/day_10_1.txt"
+    @big_test = "../lib/inputs/big_tests/day_10.txt"
   end
 
   it "can follow a noop instruction" do

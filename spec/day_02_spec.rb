@@ -1,9 +1,9 @@
-require 'day_02'
+require_relative '../lib/day_02'
 
 RSpec.describe Solution02 do
   before(:each) do
-    @test_case = './lib/inputs/test_cases/day_02_1.txt'
-    @big_test = './lib/inputs/big_tests/day_02.txt'
+    @test_case = '../lib/inputs/test_cases/day_02_1.txt'
+    @big_test = '../lib/inputs/big_tests/day_02.txt'
   end
 
   it "converts letters to numbers" do

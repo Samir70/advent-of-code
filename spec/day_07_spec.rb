@@ -1,9 +1,9 @@
-require 'day_07'
+require_relative '../lib/day_07'
 
 RSpec.describe Solution07 do
   before(:each) do
-    @test_case = './lib/inputs/test_cases/day_07_1.txt'
-    @big_test = './lib/inputs/big_tests/day_07.txt'
+    @test_case = '../lib/inputs/test_cases/day_07_1.txt'
+    @big_test = '../lib/inputs/big_tests/day_07.txt'
   end
 
   it "finds the right number of directories" do

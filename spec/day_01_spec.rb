@@ -1,9 +1,9 @@
-require "day_01"
+require_relative "../lib/day_01"
 
 RSpec.describe CountCals do
   before(:each) do
-    @test_case = "./lib/inputs/test_cases/day_01_1.txt"
-    @big_test = "./lib/inputs/big_tests/day_01.txt"
+    @test_case = "../lib/inputs/test_cases/day_01_1.txt"
+    @big_test = "../lib/inputs/big_tests/day_01.txt"
   end
   it "solves example test case" do
     cc = CountCals.new(@test_case)

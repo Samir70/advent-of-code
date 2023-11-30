@@ -18,6 +18,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  x64-mingw-ucrt
 
 DEPENDENCIES
   rspec (~> 3.12)
