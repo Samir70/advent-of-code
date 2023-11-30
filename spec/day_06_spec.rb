@@ -2,8 +2,8 @@ require_relative '../lib/day_06'
 
 RSpec.describe Solution06 do
   before(:each) do
-    @test_case = '../lib/inputs/test_cases/day_06_1.txt'
-    @big_test = '../lib/inputs/big_tests/day_06.txt'
+    @test_case = './lib/inputs/test_cases/day_06_1.txt'
+    @big_test = './lib/inputs/big_tests/day_06.txt'
   end
 
   it "recognises when four chars are unique" do

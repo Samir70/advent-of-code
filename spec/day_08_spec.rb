@@ -2,8 +2,8 @@ require_relative "../lib/day_08"
 
 RSpec.describe Solution08 do
   before(:each) do
-    @test_case = "../lib/inputs/test_cases/day_08_1.txt"
-    @big_test = "../lib/inputs/big_tests/day_08.txt"
+    @test_case = "./lib/inputs/test_cases/day_08_1.txt"
+    @big_test = "./lib/inputs/big_tests/day_08.txt"
   end
 
   it "makes keys" do

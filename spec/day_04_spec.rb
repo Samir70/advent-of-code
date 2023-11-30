@@ -2,8 +2,8 @@ require_relative '../lib/day_04'
 
 RSpec.describe Solution04 do
   before(:each) do
-    @test_case = '../lib/inputs/test_cases/day_04_1.txt'
-    @big_test = '../lib/inputs/big_tests/day_04.txt'
+    @test_case = './lib/inputs/test_cases/day_04_1.txt'
+    @big_test = './lib/inputs/big_tests/day_04.txt'
   end
 
   it "extracts intervals from string" do

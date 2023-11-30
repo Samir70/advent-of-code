@@ -2,8 +2,8 @@ require_relative "../lib/day_05"
 
 RSpec.describe Solution05 do
   before(:each) do
-    @test_case = "../lib/inputs/test_cases/day_05_1.txt"
-    @big_test = "../lib/inputs/big_tests/day_05.txt"
+    @test_case = "./lib/inputs/test_cases/day_05_1.txt"
+    @big_test = "./lib/inputs/big_tests/day_05.txt"
   end
 
   it "has correct number of piles" do

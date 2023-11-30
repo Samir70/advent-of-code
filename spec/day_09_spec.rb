@@ -2,9 +2,9 @@ require_relative "../lib/day_09"
 
 RSpec.describe Solution09 do
   before(:each) do
-    @test_case = "../lib/inputs/test_cases/day_09_1.txt"
-    @test_case_2 = "../lib/inputs/test_cases/day_09_2.txt"
-    @big_test = "../lib/inputs/big_tests/day_09.txt"
+    @test_case = "./lib/inputs/test_cases/day_09_1.txt"
+    @test_case_2 = "./lib/inputs/test_cases/day_09_2.txt"
+    @big_test = "./lib/inputs/big_tests/day_09.txt"
   end
 
   context "toward_zero method" do
