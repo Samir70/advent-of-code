@@ -52,7 +52,7 @@ class Solution01
           end
         end
       end
-      puts num
+      # puts num
       nums.push(num.to_i)
     end
     return nums.sum
