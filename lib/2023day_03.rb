@@ -33,16 +33,6 @@ class Solution03
   end
 
   def hasSymbol?(num, str)
-    # symbols = "$%&*-+=#@/"
-    # str.split("").each.with_index do |char, i|
-    #   if symbols.index(char).is_a?(Integer)
-    #     # puts [num[1], i, num[2]]
-    #     if i.between?(num[1]-1, num[2]+1)
-    #       return true
-    #     end
-    #   end
-    # end
-    # return false
     left = [0, num[1] - 1].max
     right = [num[2] + 1, str.length - 1].min
     for i in left..right
