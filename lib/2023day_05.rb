@@ -67,47 +67,56 @@ class Solution05
     return [p[0], p[0] + p[1] - 1]
   end
 
-  def mapRange(m, r)
+  def map2interval(m)
+    a, b, c = m
+    return [b, b + c - 1, a - b]
+  end
+
+  def makeRange(intervalDiff)
+    return [intervalDiff[0] + intervalDiff[2], intervalDiff[1] + intervalDiff[2]]
+  end
+
+  def processRange(intervals, left, right)
     out = []
-    a, b = r
-    return [] if a >= b
-    diff = m[0] - m[1]
-    sourceStart = m[1]
-    sourceEnd = m[1] + m[2] - 1
-    destStart = m[0]
-    destEnd = sourceEnd + diff
-    return [a, b] if a > sourceEnd
-    if a < sourceStart
-      if b < sourceStart
-        out << [a, b]
-      else
-        out << [a, sourceStart - 1]
-        out += mapRange(m, [sourceStart, b])
+    intervals.each do |interval|
+      a, b, diff = interval
+      while left <= right && left <= b
+        if left < a
+          bestEnd = [a - 1, right].min
+          out << [left, bestEnd]
+          left = bestEnd + 1
+        elsif left < b
+          bestEnd = [b, right].min
+          out << [left + diff, bestEnd + diff]
+          left = bestEnd + 1
+        else
+          out << [left, right]
+          left = right + 1
+        end
       end
     end
-
-    if a >= sourceStart
-      if b <= sourceEnd
-        out << [a + diff, b + diff]
-      else
-        out << [a+diff, destEnd]
-        out << [sourceEnd + 1, b]
-      end
-    end
-
+    out << [left, right] if left <= right
     return out
   end
 
   def run_2
-    pairs = getPairs(@data[0].split(":")[1].split(" ").map(&:to_i))
+    ranges = getPairs(@data[0].split(":")[1].split(" ").map(&:to_i)).map do |p|
+      pair2range(p)
+    end
     maps = getMaps
     maps.each do |ms|
-      newPairs = []
-      pairs.each do |p|
-        
+      intervals = ms.map do |m|
+        map2interval(m)
       end
+      intervals.sort_by! { |i| i[0] }
+      # puts "#{intervals}, #{ranges[0]}"
+      newPairs = []
+      ranges.each do |range|
+        newPairs += processRange(intervals, *range)
+      end
+      ranges = [*newPairs]
     end
-    return seeds.min
+    return ranges.map {|el| el[0]}.min
   end
 
   def process

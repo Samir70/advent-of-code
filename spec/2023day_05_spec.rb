@@ -42,21 +42,29 @@ RSpec.describe Solution05 do
     expect(sol.getPairs([79, 14, 55, 13])).to eq [[79, 14], [55, 13]]
   end
 
-  it "maps a range" do
+  it "converts a map to an interval" do
     sol = Solution05.new(@test_case)
-    expect(sol.mapRange([50, 98, 2], [79, 92])).to eq [[79, 92]]
-    expect(sol.mapRange([52, 50, 48], [45, 58])).to eq [[45, 49], [52, 60]]
-    expect(sol.mapRange([52, 50, 3], [45, 58])).to eq [[45, 49], [52, 54], [53, 58]]
-    expect(sol.mapRange([60, 50, 3], [45, 58])).to eq [[45, 49], [60, 62], [53, 58]]
-    expect(sol.mapRange([52, 50, 13], [51, 58])).to eq [[53, 60]]
-    expect(sol.mapRange([52, 50, 3], [51, 58])).to eq [[53, 54], [53, 58]]
-    expect(sol.mapRange([52, 50, 48], [79, 92])).to eq [[81, 94]]
+    expect(sol.map2interval([50, 98, 2])).to eq [98, 99, -48]
+    expect(sol.map2interval([52, 50, 48])).to eq [50, 97, 2]
+  end
+
+  it "makes range out of intervalDiff" do
+    sol = Solution05.new(@test_case)
+    expect(sol.makeRange([79, 92, 2])).to eq [81, 94]
   end
 
   it "converts pair to range" do
     sol = Solution05.new(@test_case)
     expect(sol.pair2range([79, 14])).to eq [79, 92]
     expect(sol.pair2range([55, 13])).to eq [55, 67]
+  end
+
+  it "processes maps and range into new ranges" do
+    sol = Solution05.new(@test_case)
+    res = sol.processRange([[50, 97, 2], [98, 99, -48]], 45, 100)
+    expect(res).to eq [[45, 49], [52, 99], [50, 51], [100, 100]]
+    res = sol.processRange([[50, 97, 2], [98, 99, -48]], 45, 102)
+    expect(res).to eq [[45, 49], [52, 99], [50, 51], [100, 102]]
   end
 
   it "solves example test case (part 1)" do
@@ -76,6 +84,6 @@ RSpec.describe Solution05 do
 
   it "solves big test (part 2)" do
     sol = Solution05.new(@big_test)
-    expect(sol.run_2).to eq nil
+    expect(sol.run_2).to eq 20358599
   end
 end
