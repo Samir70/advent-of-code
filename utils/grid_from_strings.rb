@@ -24,7 +24,7 @@ class GridFromStrings
   def keepOnly(char)
     @rows.times do |r|
       @cols.times do |c|
-        set(r, c, ".") if read(r, c) != char 
+        set(r, c, ".") if read(r, c) != char
       end
     end
   end
@@ -40,11 +40,25 @@ class GridFromStrings
   end
 
   def getCol(c)
-    return @grid.map {|r| r[c]}.join("")
+    return @grid.map { |r| r[c] }.join("")
   end
 
   def getRow(r)
     return @grid[r].join("")
+  end
+
+  def addCol(c)
+    return nil if c >= @cols
+    @grid.each do |row|
+      row.insert(c, ".")
+    end
+    @cols += 1
+  end
+
+  def addRow(r)
+    return nil if r >= @rows
+    @grid.insert(r, ("." * @cols).split(""))
+    @rows += 1
   end
 
   def self.add(*grids)
