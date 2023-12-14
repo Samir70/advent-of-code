@@ -43,8 +43,24 @@ class GridFromStrings
     return @grid.map { |r| r[c] }.join("")
   end
 
+  def setCol(c, newCol)
+    return nil if newCol.length != @rows
+    @rows.times do |r|
+      set(r, c, newCol[r])
+    end
+    return getCol(c)
+  end
+
   def getRow(r)
     return @grid[r].join("")
+  end
+
+  def setRow(r, newRow)
+    return nil if newRow.length != @cols
+    @cols.times do |c|
+      set(r, c, newRow[c])
+    end
+    return getRow(r)
   end
 
   def addCol(c)
