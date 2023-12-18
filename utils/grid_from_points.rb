@@ -48,5 +48,16 @@ class GridFromPoints
     @height += 1
     @grid << Array.new(@width, val)
   end
+
+  def read(r, c)
+    return nil if @grid[r] == nil
+    return @grid[r][c]
+  end
+
+  def set(r, c, val)
+    return nil if @grid[r] == nil
+    @grid[r][c] = val
+    return true
+  end
   attr_reader :min_row, :min_col, :max_col, :max_row, :width, :height, :points, :grid
 end
