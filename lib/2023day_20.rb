@@ -96,7 +96,7 @@ class Solution20
       l, h = pressButton(allMods)
       lows += l
       highs += h 
-      puts "#{i} => #{lows} * #{highs} = #{lows * highs}"
+      # puts "#{i} => #{lows} * #{highs} = #{lows * highs}"
     end
     return lows * highs
   end
