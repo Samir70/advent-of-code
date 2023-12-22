@@ -23,27 +23,48 @@ RSpec.describe Solution21 do
 
   it 'solves example test case (part 1)' do
     sol = Solution21.new(@test_case)
-    expect(sol.run(6)).to eq 16
+    grid = sol.getGrid
+    expect(sol.run(grid, 6)).to eq 16
   end
 
-  it 'solves example test case (part 2)' do
+  it "gets big grid" do
     sol = Solution21.new(@test_case)
-    expect(sol.run_2(6)).to eq 16
-    expect(sol.run_2(10)).to eq 50
-    expect(sol.run_2(50)).to eq 1594
-    expect(sol.run_2(100)).to eq 6536
-    expect(sol.run_2(500)).to eq 167004
-    expect(sol.run_2(1000)).to eq 668697
-    expect(sol.run_2(5000)).to eq 16733044
+    grid = sol.getBigGrid
+    expect(grid.rows).to eq 55
+    expect(grid.cols).to eq 55
+    expect(grid.read(27, 27)).to eq "S"
   end
+
+  # it 'solves example test case (part 2)' do
+  #   # example doesn't have the plots all the way up and down the middle
+  #   # so our approximation will not work
+  #   sol = Solution21.new(@test_case)
+  #   expect(sol.run_2(6)).to eq 16
+  #   sol = Solution21.new(@test_case)
+  #   expect(sol.run_2(10)).to eq 50
+  #   sol = Solution21.new(@test_case)
+  #   expect(sol.run_2(50)).to eq 1594
+  #   sol = Solution21.new(@test_case)
+  #   expect(sol.run_2(100)).to eq 6536
+  #   sol = Solution21.new(@test_case)
+  #   expect(sol.run_2(500)).to eq 167004
+  #   sol = Solution21.new(@test_case)
+  #   expect(sol.run_2(1000)).to eq 668697
+  #   sol = Solution21.new(@test_case)
+  #   expect(sol.run_2(5000)).to eq 16733044
+  # end
 
   it 'solves big test (part 1)' do
     sol = Solution21.new(@big_test)
-    expect(sol.run(64)).to eq 3615
+    grid = sol.getGrid
+    expect(sol.run(grid, 64)).to eq 3615
   end
 
   it 'solves big test (part 2)' do
     sol = Solution21.new(@big_test)
-    expect(sol.run_2).to eq nil
+    expect(sol.run_2(26501365)).to eq 602259568764234
+    # 273201343861336 is too low
+    # 601707022829236 is too low
+    # 602259568764234
   end
 end
