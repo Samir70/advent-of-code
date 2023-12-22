@@ -67,14 +67,19 @@ class Solution20
     return out
   end
 
-  def pressButton(allMods)
+  def pressButton(allMods, count)
     toSend = [["button", "low", "broadcaster"]]
     lows = 0
     highs = 0
     pointer = 0
+    whoSentHighToDH = []
     while pointer < toSend.length
       from, p, pModule = toSend[pointer]
       pointer += 1
+      # puts "#{[from, p, pModule]}" if pModule === "rx"
+      puts "count: #{count} => #{[from, p, pModule]}" if pModule === "dh" && p === "high"
+      return "rx got low" if p === "low" && pModule === "rx"
+      whoSentHighToDH << from if p === "high" && pModule === "dh"
       pMod = allMods[pModule]
       # puts "#{from} - #{p} -> #{pMod}"
       if p === "low"
@@ -85,7 +90,7 @@ class Solution20
       res = pulse(from, p, pMod)
       res.each {|r| toSend << r}
     end
-    return [lows, highs]
+    return [lows, highs, whoSentHighToDH]
   end
 
   def run
@@ -93,7 +98,7 @@ class Solution20
     lows = 0
     highs = 0
     1000.times do |i|
-      l, h = pressButton(allMods)
+      l, h = pressButton(allMods, 0)
       lows += l
       highs += h 
       # puts "#{i} => #{lows} * #{highs} = #{lows * highs}"
@@ -101,7 +106,39 @@ class Solution20
     return lows * highs
   end
 
+  def countTrues(pm)
+    count = 0
+    pm.mostRecentPs.values.each {|v| count += 1 if v}
+    return count
+  end
+
   def run_2
+    count = 0
+    allMods = getModules
+    timesTilSendHigh = {
+      "tr" => 0, 
+      "xm" => 0, 
+      "dr" => 0, 
+      "nh" => 0, 
+    }
+    while true
+      count += 1
+      res = pressButton(allMods, count)
+      # puts count if count % 1000 === 0
+      if res[2].length > 0
+        timesTilSendHigh[res[2][0]] = count if timesTilSendHigh[res[2][0]] == 0
+        prod = 1
+        timesTilSendHigh.values.each {|v| prod *= v}
+        return prod if prod > 0
+      end
+      # we get: 
+      # count: 3739 => ["tr", "high", "dh"]
+      # count: 3761 => ["xm", "high", "dh"]
+      # count: 3797 => ["dr", "high", "dh"]
+      # count: 3889 => ["nh", "high", "dh"]
+      # all counts are prime, LCM = 207652583562007
+      return count if res === "rx got low" # takes way too long!!!!!!!!!
+    end
   end
 
   def process

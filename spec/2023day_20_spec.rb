@@ -35,10 +35,10 @@ RSpec.describe Solution20 do
     sol = Solution20.new(@test_case)
     broad = PulseModule.new("broadcaster", "broadcaster", false, ["a", "b", "c"], ["button"], nil)
     expect(sol.pulse("button", "low", broad)).to eq [
-      ["broadcaster", "low", "a"], 
-      ["broadcaster", "low", "b"], 
-      ["broadcaster", "low", "c"]
-    ]
+         ["broadcaster", "low", "a"],
+         ["broadcaster", "low", "b"],
+         ["broadcaster", "low", "c"],
+       ]
   end
   it "flip/flop responds to a pulse" do
     sol = Solution20.new(@test_case)
@@ -52,23 +52,29 @@ RSpec.describe Solution20 do
 
   it "conjunction responds to a pulse" do
     sol = Solution20.new(@test_case)
-    inv = PulseModule.new("inv", "&", false, ["a", "b"], ["broadcaster", "c"], {"c" => false, "broadcaster" => false})
+    inv = PulseModule.new("inv", "&", false, ["a", "b"], ["broadcaster", "c"], { "c" => false, "broadcaster" => false })
     expect(sol.pulse("c", "high", inv)).to eq [
-      ["inv", "high", "a"],
-      ["inv", "high", "b"]
-    ]
+         ["inv", "high", "a"],
+         ["inv", "high", "b"],
+       ]
     expect(inv.mostRecentPs["c"]).to eq true
     expect(sol.pulse("broadcaster", "high", inv)).to eq [
-      ["inv", "low", "a"],
-      ["inv", "low", "b"]
-    ]
+         ["inv", "low", "a"],
+         ["inv", "low", "b"],
+       ]
     expect(inv.mostRecentPs["broadcaster"]).to eq true
   end
 
   it "counts highs and lows from pressing a button" do
     sol = Solution20.new(@test_case)
     allMods = sol.getModules
-    expect(sol.pressButton(allMods)).to eq [8, 4]
+    expect(sol.pressButton(allMods, 0)).to eq [8, 4, []]
+  end
+
+  it "counts trues in mostRecentPs" do
+    sol = Solution20.new(@test_case)
+    pm = PulseModule.new(nil, nil, nil, nil, nil, { "a" => true, "b" => false, "c" => true })
+    expect(sol.countTrues(pm)).to eq 2
   end
 
   it "solves example test case (part 1)" do
@@ -76,10 +82,10 @@ RSpec.describe Solution20 do
     expect(sol.run).to eq 32000000
   end
 
-  it "solves example test case (part 2)" do
-    sol = Solution20.new(@test_case)
-    expect(sol.run_2).to eq nil
-  end
+  # it "solves example test case (part 2)" do
+  #   sol = Solution20.new(@test_case)
+  #   expect(sol.run_2).to eq nil
+  # end
 
   it "solves big test (part 1)" do
     sol = Solution20.new(@big_test)
@@ -88,6 +94,7 @@ RSpec.describe Solution20 do
 
   it "solves big test (part 2)" do
     sol = Solution20.new(@big_test)
-    expect(sol.run_2).to eq nil
+    expect(sol.run_2).to eq 207652583562007
+    # not 1
   end
 end
